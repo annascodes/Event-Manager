@@ -18,7 +18,7 @@ dist-ssr
 /frontend/node_modules/
 
 # Ignore node_modules in root (backend)
-/node_modules/
+node_modules/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
