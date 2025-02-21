@@ -8,6 +8,8 @@ const InputTag = ({ preSet=null, fieldName, setValue, type='text', size='',setEr
     useEffect(()=>{
         if(preSet) setValue(preSet)
     },[preSet])
+
+   
     return (
         <div className='flex flex-row items-center'>
              <Icons iconName={'dot'} size='4xl' color={isGreen ? `text-green-500`: `text-red-500`} />

@@ -1,6 +1,7 @@
 import React from 'react'
 import useFetch from '../hooks/useFetch'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 const BoughtTickets = () => {
 
@@ -19,10 +20,13 @@ const BoughtTickets = () => {
                             <span className=' text-yellow-300 tracking-widest'>ticket #</span>
                             {t._id.slice(-5)}
                         </h1>
-                        <h1 className='flex items-center gap-2'>
+                        <Link to={`/eventdetails/${t.event._id}`} className='flex items-center gap-2 '>
                             <span className='text-xs text-yellow-300 tracking-widest'>event name</span>
-                            {t.event.name}
-                        </h1>
+                            
+                            <span className='hover:underline underline-offset-4'>
+                            {t.event.name} 
+                            </span>
+                        </Link>
                         <h1 className='flex items-center gap-2'>
                             <span className='text-xs text-yellow-300 tracking-widest'>event status</span>
                             {t.event.status}

@@ -55,7 +55,7 @@ const EventDetailsPage = () => {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
+            // console.log(data)
             let admins = 0;
             let hosts = 0;
             let guests = 0;
