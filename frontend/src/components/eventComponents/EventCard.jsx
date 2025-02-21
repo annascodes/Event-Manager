@@ -62,7 +62,7 @@ const EventCard = ({ deleteEventLoading, event, handleDeleteEvent }) => {
                 <h1 className='absolute top-2 left-2 bg-zinc-100 text-zinc-900 py-1 px-2 rounded-xl text-xs tracking-widest  font-bold flex items-center gap-1 '>
                     <Icons iconName={'plus'} size='lg' />
                     {event?.capacity}
-                    <Icons iconName={'users2'} size='lg' />
+                    <Icons iconName={'users2'} size='lg' />  
 
                 </h1>
                 {/* <button className='absolute top-2 right-2 hover:bg-white hover:border-white hover:text-black btn btn-xs btn-outline rounded-md border-none tracking-widest'>
