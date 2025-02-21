@@ -24,7 +24,7 @@ const Login = () => {
             setErr('all fields are required')
             return
         }
-        console.log(email, password)
+        // console.log(email, password)
         post({
             email,
             password
@@ -40,7 +40,6 @@ const Login = () => {
            
 
     },[loginUser])
-    console.log(loginLoading, loginErr)
 
     return (
         <div>
@@ -56,6 +55,7 @@ const Login = () => {
                     <Button onclick={handleLogin} btnName='Login' outline='outline' size='btn-sm' />
 
                     {err && <Error msg={err} />}
+                    {loginErr && <Error msg={`${loginErr}: ${email}`} />}
 
                     <p className='text-zinc-500 mt-10'>Don't have an account? <Link to={'/register'} className='underline underline-offset-4 text-blue-200 text-sm'>Register here</Link> </p>
                 </div>

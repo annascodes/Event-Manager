@@ -8,13 +8,13 @@ import CheckDropdown from '../CheckDropdown'
 
 import RoleAssigning from './RoleAssigning'
 import Loading from '../Loading'
-import {toast} from 'sonner'
-import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
 const CreateInvitation = () => {
-    const {post:sendInvitation, data:sendInvitationData, loading:sendInvitationLoading, err:sendInvitationErr} = usePost('/api/invitation/sendinvitation')
+    const { post: sendInvitation, data: sendInvitationData, loading: sendInvitationLoading, err: sendInvitationErr } = usePost('/api/invitation/sendinvitation')
     const [searchedTerm, setSearchedTerm] = useState(null)
     const { post, data, loading: searchedUserLoading, err: searchedUserErr } = usePost('/api/user/searchedusers')
     const { data: eventsbyme, loading: eventsbymeloading, err: eventsbymeerr } = useFetch('/api/event/eventsbyme')
@@ -40,43 +40,43 @@ const CreateInvitation = () => {
         }
     }, [data])
 
-    useEffect(()=>{
-         setSelectedUser([])
+    useEffect(() => {
+        setSelectedUser([])
 
-    },[selectedEvent])
+    }, [selectedEvent])
 
-    console.log('SelectedEventId:',selectedEventId)
-    console.log('searchedUsers:', searchedUsers )
-    console.log('eventsbyme:', eventsbyme )
+    console.log('SelectedEventId:', selectedEventId)
+    console.log('searchedUsers:', searchedUsers)
+    console.log('eventsbyme:', eventsbyme)
 
     const handleSendInvitation = (usersRole) => {
         let temp = {};
-        eventsbyme && eventsbyme.map(e=>{
-            if(e.name === selectedEvent){
-                temp = {...e}
+        eventsbyme && eventsbyme.map(e => {
+            if (e.name === selectedEvent) {
+                temp = { ...e }
             }
-        } )
+        })
 
-        console.log({event:temp,usersRole})
-        sendInvitation({event:temp,usersRole})
+        console.log({ event: temp, usersRole })
+        sendInvitation({ event: temp, usersRole })
 
 
     }
 
-    
-    useEffect(()=>{
-        if(sendInvitationData){
+
+    useEffect(() => {
+        if (sendInvitationData) {
             toast.success('Invitation sent successflly')
             navigate('/invitations/sent')
-            
+
         }
 
-    },[sendInvitationData])
+    }, [sendInvitationData])
 
-   
 
-    if(sendInvitationLoading){
-        return <Loading type='loading-spinner' size='loading-md'/>
+
+    if (sendInvitationLoading) {
+        return <Loading type='loading-spinner' size='loading-md' />
     }
 
 
@@ -88,15 +88,26 @@ const CreateInvitation = () => {
             {/* selecting event from dropdown menu  */}
             {/* <h1 className='text-xs w-full bg-yellow-900 tracking-widest text-center  text-white'>STEP 1</h1> */}
             <div className='my-4 md:w-1/2 mx-auto'>
+                {
+                   ( eventsbyme && eventsbyme.length !==0 )?
+                    <div className='flex flex-row  items-center'>
+                        <CheckDropdown
+                            options={eventsbyme && eventsbyme.map(e => e.name)}
+                            title='Select event'
+                            setValue={setSelectedEvent}
+                            setErr={setErr}
+                        />
+                    </div>: 
+                    <div className=' border border-dashed border-gray-700 py-10 flex flex-col justify-center items-center'>
+                        <h1 className='text-center italic'>
+                        you have not created any event yet!
+                        </h1>
+                        <Link className='btn btn-ghost btn-sm rounded-sm underline underline-offset-4' to={'/makeevent'}>
+                            Make event
+                        </Link>
+                    </div>
 
-                <div className='flex flex-row  items-center'>
-                    <CheckDropdown
-                        options={eventsbyme && eventsbyme.map(e => e.name)}
-                        title='Select event'
-                        setValue={setSelectedEvent}
-                        setErr={setErr}
-                    />
-                </div>
+                }
             </div>
 
             {/* step 2  */}
@@ -163,23 +174,23 @@ const CreateInvitation = () => {
                                             <h1 className='text-sm tracking-widest'>( {u.email} )</h1>
                                         </div>
                                         {
-                                            u.receivedInv.some(i=> i.event.name === selectedEvent) ? <span className='bg-white text-black   px-1 tracking-widest uppercase text-xs'>sent</span>
-                                            :(
-                                                selectedUser.some((selected) => selected._id === u._id)
-                                                ?
-                                                <button className=' p-2 border-none  '>
-                                                    <Icons iconName={'good'} size='lg' color='text-green-500' />
-                                                </button>
-                                                :
-                                                <button onClick={() => {
-                                                    setSelectedUser([...selectedUser, u])
-                                                }} className='btn btn-outline btn-xs border-none  '>
-                                                    <Icons iconName={'plus'} size='lg' />
-                                                </button>
-                                            )
+                                            u.receivedInv.some(i => i.event.name === selectedEvent) ? <span className='bg-white text-black   px-1 tracking-widest uppercase text-xs'>sent</span>
+                                                : (
+                                                    selectedUser.some((selected) => selected._id === u._id)
+                                                        ?
+                                                        <button className=' p-2 border-none  '>
+                                                            <Icons iconName={'good'} size='lg' color='text-green-500' />
+                                                        </button>
+                                                        :
+                                                        <button onClick={() => {
+                                                            setSelectedUser([...selectedUser, u])
+                                                        }} className='btn btn-outline btn-xs border-none  '>
+                                                            <Icons iconName={'plus'} size='lg' />
+                                                        </button>
+                                                )
 
                                         }
-                                     
+
 
                                         {/* {
                                             selectedUser.some((selected) => selected._id === u._id)

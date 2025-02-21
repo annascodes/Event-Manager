@@ -83,11 +83,11 @@ const Navbar2 = () => {
                                     <span className='md:hidden block'> <Icons iconName={'ticket'} size='xl' /></span>
 
                                 </Link>
-                                <Link to={'/gallery'} className={`${location.pathname.toString().includes('/gallery') && 'btn-active'} ${tailwind} `}>
+                                {/* <Link to={'/gallery'} className={`${location.pathname.toString().includes('/gallery') && 'btn-active'} ${tailwind} `}>
                                     <span className='md:block hidden'> Gallery</span>
                                     <span className='md:hidden block'> <Icons iconName={'images'} size='lg' /></span>
 
-                                </Link>
+                                </Link> */}
                                 <Link to={'/invitations'} className={`${location.pathname.toString().includes('/invitations') && 'btn-active'} ${tailwind} `}>
                                     <span className='md:block hidden'> Invitations
                                         {(notresponded) && <span className='bg-black text-white  rounded-md text-xs'>   </span> }

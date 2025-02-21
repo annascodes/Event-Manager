@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import InputTag from '../components/InputTag'
 import Button from '../components/Button'
 import Error from '../components/Error'
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { toast } from 'sonner'
+
+
+import usePost from '../hooks/usePost' 
 
 const Registration = () => {
     const [firstname, setFirstname] = useState()
@@ -12,6 +15,8 @@ const Registration = () => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [err, setErr] = useState(null)
+    const {post, data, loading, err:regErr} = usePost('/api/auth/register')
+    const navigate = useNavigate()
 
     const handleRegistration = async () => {
         console.log(firstname, lastname, email, password)
@@ -20,7 +25,23 @@ const Registration = () => {
             setErr('all fields are required')
             return
         }
+
+        post(
+            {
+                firstName:firstname,
+                lastName: lastname,
+                email,
+                password
+            }
+        )
     }
+
+    useEffect(()=>{
+        if(data){
+            console.log(data)
+            navigate('/login')
+        }
+    },[data])
 
     const showToast = ()=>{
         toast.error('this is testing of sonner')
@@ -45,6 +66,8 @@ const Registration = () => {
 
 
                 {err && <Error msg={err} />}
+
+                {regErr && <Error msg={regErr} />}
 
                 <p className='text-zinc-500'>Aready have an account? <Link to={'/login'} className='underline underline-offset-4 text-blue-200 text-sm'>Login</Link> </p>
             </div>

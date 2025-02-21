@@ -8,7 +8,7 @@ export const resgistration = async (req, res, next) => {
     try {
         if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) return next(errHandler(404, 'need all credentials'))
 
-        const isExist = await User.findOne({ email: req.body.email })
+        const isExist = await User.findOne({ email: req.body.email }) 
 
         if (isExist) return next(errHandler(400, 'email already registered!'))
         const password = bcryptjs.hashSync(req.body.password, 10);
